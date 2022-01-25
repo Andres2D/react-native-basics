@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const BasicTypes = () => {
 
     const name: string = 'Andres';
