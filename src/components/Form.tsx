@@ -1,19 +1,11 @@
-import React from 'react';
-import { useState } from 'react';
+import { useForm } from '../hooks/useForm';
 
 export const Form = () => {
 
-    const [form, setForm] = useState({
+    const {form, email, password, onChanges} = useForm({
         email: 'test@mail.com',
         password: '1234'
     });
-
-    const onChanges = ( value: string, field: string ) => {
-        setForm({
-            ...form,
-            [field]: value
-        });
-    }
 
   return (
     <>
@@ -22,7 +14,7 @@ export const Form = () => {
             type="text"
             className='form-control'
             placeholder='email'
-            value={form.email}
+            value={email}
             onChange={({target}) => onChanges(target.value, 'email')}
         />
 
@@ -30,7 +22,7 @@ export const Form = () => {
             type="text"
             className='form-control mt-2 mb-2'
             placeholder='password'
-            value={form.password}
+            value={password}
             onChange={({target}) => onChanges(target.value, 'password')}
         />
 
