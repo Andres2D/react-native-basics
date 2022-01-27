@@ -1,33 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import { reqResApi } from '../api/req-res';
-import { ReqResList, User } from '../interfaces/reqRes';
+import { User } from '../interfaces/reqRes';
+import { useUsers } from '../hooks/useUsers';
 
 export const Users = () => {
 
-    const [users, setUsers] = useState<User[]>([]);
+    const {users, loadUsers} = useUsers();
 
-    const pageRef = useRef(1);
-
-    useEffect(() => {
-        loadUsers();
-    }, []);
-
-    const loadUsers = async() => {
-        //call API
-        const resp = await reqResApi.get<ReqResList>('/users', {
-            params: {
-                page: pageRef.current
-            }
-        });
-        
-        if(resp.data.data.length > 0) {
-            setUsers(resp.data.data);
-            pageRef.current ++;
-        }else{
-            alert('No more pages')
-        }
-    }
-    
     const renderItem = ({id, first_name, last_name, email, avatar}: User) => {
         return (
             <tr key={ id.toString() }>
@@ -46,7 +23,6 @@ export const Users = () => {
             </tr>
         )
     }
-
 
   return (
       <>
