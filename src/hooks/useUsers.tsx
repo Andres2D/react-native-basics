@@ -20,18 +20,30 @@ export const useUsers = () => {
                 page: pageRef.current
             }
         });
-        
+
         if(resp.data.data.length > 0) {
             setUsers(resp.data.data);
-            pageRef.current ++;
         }else{
-            alert('No more pages')
+            pageRef.current --;
+            alert('No more pages');
+        }
+    }
+
+    const nextPage = () => {
+        pageRef.current ++;
+        loadUsers();
+    }
+
+    const backPage = () => {
+        if(pageRef.current > 1) {
+            pageRef.current --;
+            loadUsers();
         }
     }
 
     return {
         users,
-        loadUsers
+        nextPage,
+        backPage
     }
-
 };
